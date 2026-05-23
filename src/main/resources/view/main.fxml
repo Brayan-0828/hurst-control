@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:id="rootPane" minWidth="1180" minHeight="760"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.MainController"
+            style="-fx-background-color: #152246;">
+
+    <left>
+        <VBox prefWidth="270" minWidth="270" maxWidth="270" spacing="0"
+              style="-fx-background-color: #1e3163; -fx-border-color: #2d4682; -fx-border-width: 0 1 0 0;">
+
+            <VBox spacing="6" style="-fx-padding: 24 20; -fx-border-color: #2d4682; -fx-border-width: 0 0 1 0;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <StackPane style="-fx-background-color: #2a437e; -fx-padding: 6; -fx-background-radius: 6;">
+                        <SVGPath content="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                                 fill="#64d2ff" scaleX="0.8" scaleY="0.8"/>
+                    </StackPane>
+                    <Label text="HURST-Control"
+                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+                </HBox>
+                <Label text="Hosp. Univ. San Rafael de Tunja"
+                       style="-fx-font-size: 11px; -fx-text-fill: #cbd6ea;" wrapText="true"/>
+            </VBox>
+
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent; -fx-hbar-policy: never; -fx-vbar-policy: as-needed;">
+
+                <VBox spacing="6" style="-fx-padding: 20 12; -fx-background-color: #1e3163;">
+
+                    <Label text="MENÚ OPERATIVO" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #8fa4cb; -fx-padding: 0 0 4 6;"/>
+
+                    <HBox fx:id="btnCronograma" onMouseClicked="#abrirCronogramas" alignment="CENTER_LEFT" spacing="12"
+                          style="-fx-background-color: #2a437e; -fx-background-radius: 6; -fx-padding: 11 14; -fx-cursor: hand;">
+                        <SVGPath content="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"
+                                 fill="#64d2ff"/>
+                        <Label text="Cronograma de Prácticas"
+                               style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+                    </HBox>
+
+                    <HBox fx:id="btnEstudiantes" onMouseClicked="#abrirEstudiantes" alignment="CENTER_LEFT" spacing="12"
+                          style="-fx-background-color: transparent; -fx-padding: 11 14; -fx-cursor: hand; -fx-background-radius: 6;">
+                        <SVGPath content="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z"
+                                 fill="#a4b6d4"/>
+                        <Label text="Gestión de Estudiantes" style="-fx-font-size: 13px; -fx-text-fill: #a4b6d4;"/>
+                    </HBox>
+
+                    <HBox fx:id="btnDocentes" onMouseClicked="#abrirDocentes" alignment="CENTER_LEFT" spacing="12"
+                          style="-fx-background-color: transparent; -fx-padding: 11 14; -fx-cursor: hand; -fx-background-radius: 6;">
+                        <SVGPath content="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 1.34 5 3s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"
+                                 fill="#a4b6d4"/>
+                        <Label text="Gestión de Docentes" style="-fx-font-size: 13px; -fx-text-fill: #a4b6d4;"/>
+                    </HBox>
+
+                    <HBox fx:id="btnServicios" onMouseClicked="#abrirServicios" alignment="CENTER_LEFT" spacing="12"
+                          style="-fx-background-color: transparent; -fx-padding: 11 14; -fx-cursor: hand; -fx-background-radius: 6;">
+                        <SVGPath content="M19 10.5V20H5v-9.5H3V22h18v-11.5zM12 2L2 9h3v1h14v-1h3zm0 9.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"
+                                 fill="#a4b6d4"/>
+                        <Label text="Servicios Hospitalarios" style="-fx-font-size: 13px; -fx-text-fill: #a4b6d4;"/>
+                    </HBox>
+
+                    <HBox fx:id="btnUniversidades" onMouseClicked="#abrirUniversidades" alignment="CENTER_LEFT" spacing="12"
+                          style="-fx-background-color: transparent; -fx-padding: 11 14; -fx-cursor: hand; -fx-background-radius: 6;">
+                        <SVGPath content="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5.49 12.18l-1.22.67L12 17l7.73-4.15-1.22-.67L12 15.5l-6.51-3.32z"
+                                 fill="#a4b6d4"/>
+                        <Label text="Gestión de Universidades" style="-fx-font-size: 13px; -fx-text-fill: #a4b6d4;"/>
+                    </HBox>
+
+                    <HBox fx:id="btnAcceso" onMouseClicked="#abrirAcceso" alignment="CENTER_LEFT" spacing="12"
+                          style="-fx-background-color: transparent; -fx-padding: 11 14; -fx-cursor: hand; -fx-background-radius: 6;">
+                        <SVGPath content="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"
+                                 fill="#a4b6d4"/>
+                        <Label text="Control de Acceso" style="-fx-font-size: 13px; -fx-text-fill: #a4b6d4;"/>
+                    </HBox>
+
+                    <Region prefHeight="14"/>
+
+                    <HBox onMouseClicked="#salir" alignment="CENTER_LEFT" spacing="12"
+                          style="-fx-padding: 11 14; -fx-cursor: hand; -fx-background-radius: 6;">
+                        <SVGPath content="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"
+                                 fill="#ffb3b3"/>
+                        <Label text="Cerrar Aplicación" style="-fx-font-size: 13px; -fx-text-fill: #ffb3b3; -fx-font-weight: bold;"/>
+                    </HBox>
+
+                </VBox>
+            </ScrollPane>
+
+            <VBox style="-fx-padding: 16; -fx-background-color: #152246; -fx-border-color: #2d4682; -fx-border-width: 1 0 0 0;">
+                <Label text="Usuario de Sistema" style="-fx-font-size: 11px; -fx-text-fill: #8fa4cb;"/>
+                <Label text="Administrador" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #64d2ff; -fx-padding: 2 0 0 0;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <fx:include source="cronograma.fxml"/>
+    </center>
+
+</BorderPane>

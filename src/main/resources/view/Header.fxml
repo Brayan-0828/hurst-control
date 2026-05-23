@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<VBox alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      style="-fx-padding: 16 0; -fx-background-color: transparent;">
+
+    <ImageView fitWidth="200" fitHeight="70" preserveRatio="true">
+        <image>
+            <Image url="@../images/logo_hospital.png"/>
+        </image>
+    </ImageView>
+
+</VBox>
