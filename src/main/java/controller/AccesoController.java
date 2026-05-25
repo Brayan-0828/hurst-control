@@ -166,7 +166,6 @@ public class AccesoController {
         return cronogramaDAO.findAll().stream()
                 .filter(c -> c.getEstudiante().getIdEstudiante().equals(est.getIdEstudiante()))
                 .filter(c -> c.getFecha().equals(hoy))
-                // Cambiado de '==' a '.equals()' o chequeo por Name del Enum para evitar fallos de memoria física orientada a objetos
                 .filter(c -> c.getEstado() != null && c.getEstado().equals(Cronograma.Estado.APROBADO))
                 .filter(c -> !ahora.isBefore(c.getHoraInicio()) && !ahora.isAfter(c.getHoraFin()))
                 .findFirst().orElse(null);

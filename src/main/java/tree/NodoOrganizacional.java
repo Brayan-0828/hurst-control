@@ -22,8 +22,6 @@ public class NodoOrganizacional<T> {
         this.hijos = new ArrayList<>();
     }
 
-    // ── Accessors ────────────────────────────────────────────────────────────
-
     public T getValor() {
         return valor;
     }
@@ -36,8 +34,6 @@ public class NodoOrganizacional<T> {
         return hijos.isEmpty();
     }
 
-    // ── Mutation ─────────────────────────────────────────────────────────────
-
     public void agregarHijo(NodoOrganizacional<?> hijo) {
         if (hijo == null) throw new IllegalArgumentException("El nodo hijo no puede ser null.");
         hijos.add(hijo);
@@ -47,12 +43,6 @@ public class NodoOrganizacional<T> {
         return hijos.remove(hijo);
     }
 
-    // ── Depth-first traversal ────────────────────────────────────────────────
-
-    /**
-     * Walks the subtree rooted at this node in pre-order (node before children)
-     * and passes each node to the visitor.
-     */
     public void recorrerPreOrden(NodoVisitor visitor) {
         visitor.visitar(this);
         for (NodoOrganizacional<?> hijo : hijos) {
@@ -60,9 +50,6 @@ public class NodoOrganizacional<T> {
         }
     }
 
-    /**
-     * Returns the depth (number of edges from this node to the deepest leaf).
-     */
     public int profundidad() {
         if (esHoja()) return 0;
         int max = 0;
@@ -72,9 +59,6 @@ public class NodoOrganizacional<T> {
         return 1 + max;
     }
 
-    /**
-     * Counts the total number of descendant nodes (excludes self).
-     */
     public int contarDescendientes() {
         int total = 0;
         for (NodoOrganizacional<?> hijo : hijos) {

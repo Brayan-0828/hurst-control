@@ -31,15 +31,12 @@ public class HurstFacade {
 
     private static HurstFacade instancia;
 
-    /** Returns the single shared instance of the Facade. */
     public static synchronized HurstFacade getInstance() {
         if (instancia == null) {
             instancia = new HurstFacade();
         }
         return instancia;
     }
-
-    // ── DAOs (hidden from callers) ────────────────────────────────────────────
 
     private final EstudianteDAO   estudianteDAO;
     private final DocenteDAO      docenteDAO;
@@ -50,7 +47,6 @@ public class HurstFacade {
     private final AlertaLogDAO    alertaLogDAO;
     private final AuditoriaDAO    auditoriaDAO;
 
-    /** Shared organizational tree, rebuilt on demand. */
     private final ArbolOrganizacional arbol;
 
     private HurstFacade() {
@@ -65,15 +61,11 @@ public class HurstFacade {
         arbol           = new ArbolOrganizacional();
     }
 
-    // ── Estudiantes ──────────────────────────────────────────────────────────
-
-    /** Persists a new or modified Estudiante and refreshes the tree. */
     public void registrarEstudiante(Estudiante estudiante) {
         estudianteDAO.save(estudiante);
         refrescarArbol();
     }
 
-    /** Removes an Estudiante by id and refreshes the tree. */
     public void eliminarEstudiante(Long id) {
         estudianteDAO.delete(id);
         refrescarArbol();
@@ -83,17 +75,12 @@ public class HurstFacade {
         return estudianteDAO.findAll();
     }
 
-    /** Returns only active Estudiantes. */
     public List<Estudiante> getEstudiantesActivos() {
         return estudianteDAO.findAll().stream()
                 .filter(Estudiante::isActivo)
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Returns Estudiantes whose ARL or Seguro expires within the next
-     * {@code diasUmbral} days — useful for alerts.
-     */
     public List<Estudiante> getEstudiantesConVigenciaProxima(int diasUmbral) {
         LocalDate limite = LocalDate.now().plusDays(diasUmbral);
         return estudianteDAO.findAll().stream()
@@ -106,8 +93,6 @@ public class HurstFacade {
     public Estudiante buscarEstudiantePorId(Long id) {
         return estudianteDAO.findById(id);
     }
-
-    // ── Docentes ─────────────────────────────────────────────────────────────
 
     public void registrarDocente(Docente docente) {
         docenteDAO.save(docente);
@@ -129,8 +114,6 @@ public class HurstFacade {
                 .collect(Collectors.toList());
     }
 
-    // ── Universidades ────────────────────────────────────────────────────────
-
     public void registrarUniversidad(Universidad universidad) {
         universidadDAO.save(universidad);
         refrescarArbol();
@@ -151,8 +134,6 @@ public class HurstFacade {
                 .collect(Collectors.toList());
     }
 
-    // ── Cronogramas ──────────────────────────────────────────────────────────
-
     public void registrarCronograma(Cronograma cronograma) {
         cronogramaDAO.save(cronograma);
     }
@@ -165,14 +146,11 @@ public class HurstFacade {
         return cronogramaDAO.findAll();
     }
 
-    /** Returns only pending schedules. */
     public List<Cronograma> getCronogramasPendientes() {
         return cronogramaDAO.findAll().stream()
                 .filter(c -> c.getEstado() == Cronograma.Estado.PENDIENTE)
                 .collect(Collectors.toList());
     }
-
-    // ── Servicios ────────────────────────────────────────────────────────────
 
     public void registrarServicio(Servicio servicio) {
         servicioDAO.save(servicio);
@@ -186,8 +164,6 @@ public class HurstFacade {
         return servicioDAO.findAll();
     }
 
-    // ── Registros de acceso ──────────────────────────────────────────────────
-
     public void registrarAcceso(RegistroAcceso registro) {
         registroAccesoDAO.save(registro);
     }
@@ -195,8 +171,6 @@ public class HurstFacade {
     public List<RegistroAcceso> getRegistrosAcceso() {
         return registroAccesoDAO.findAll();
     }
-
-    // ── Alertas y auditoría ──────────────────────────────────────────────────
 
     public void registrarAlerta(AlertaLog alerta) {
         alertaLogDAO.save(alerta);
@@ -214,12 +188,6 @@ public class HurstFacade {
         return auditoriaDAO.findAll();
     }
 
-    // ── Árbol organizacional ─────────────────────────────────────────────────
-
-    /**
-     * Returns the shared organisational tree, rebuilding it from the database
-     * if it has not been initialised yet.
-     */
     public ArbolOrganizacional getArbol() {
         if (arbol.getRaiz().getHijos().isEmpty()) {
             refrescarArbol();
@@ -227,10 +195,6 @@ public class HurstFacade {
         return arbol;
     }
 
-    /**
-     * Forces a full rebuild of the organisational tree from current DB data.
-     * Called automatically after any write operation.
-     */
     public void refrescarArbol() {
         arbol.construir(
                 universidadDAO.findAll(),
@@ -239,10 +203,6 @@ public class HurstFacade {
         );
     }
 
-    /**
-     * Prints the current organisational tree to stdout.
-     * Convenient for debugging or quick reports.
-     */
     public void imprimirArbol() {
         System.out.println(arbol.imprimirArbol());
     }

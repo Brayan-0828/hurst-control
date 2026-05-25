@@ -157,7 +157,6 @@ public class CronogramaController {
                     setStyle("");
                 } else {
                     setText(item.toString());
-                    // Colores temáticos por estado con alto contraste
                     if (item == Cronograma.Estado.APROBADO) {
                         setStyle("-fx-text-fill: #52d689; -fx-font-weight: bold;");
                     } else if (item == Cronograma.Estado.RECHAZADO) {

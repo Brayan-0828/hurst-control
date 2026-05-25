@@ -25,19 +25,12 @@ import java.util.List;
  */
 public class ArbolOrganizacional {
 
-    /** Invisible root — its children are the universities. */
     private final NodoOrganizacional<String> raiz;
 
     public ArbolOrganizacional() {
         raiz = new NodoOrganizacional<>("HURST CONTROL");
     }
 
-    // ── Construction ─────────────────────────────────────────────────────────
-
-    /**
-     * Builds (or rebuilds) the complete tree from entity lists.
-     * Call this after loading data from the DAOs.
-     */
     public void construir(List<Universidad> universidades,
                           List<Docente>     docentes,
                           List<Estudiante>  estudiantes) {
@@ -73,11 +66,6 @@ public class ArbolOrganizacional {
         }
     }
 
-    // ── Queries ──────────────────────────────────────────────────────────────
-
-    /**
-     * Returns all university nodes (direct children of root).
-     */
     @SuppressWarnings("unchecked")
     public List<NodoOrganizacional<Universidad>> getUniversidades() {
         List<NodoOrganizacional<Universidad>> result = new ArrayList<>();
@@ -87,9 +75,6 @@ public class ArbolOrganizacional {
         return result;
     }
 
-    /**
-     * Returns all docente nodes belonging to a given university.
-     */
     @SuppressWarnings("unchecked")
     public List<NodoOrganizacional<Docente>> getDocentesPorUniversidad(Universidad universidad) {
         List<NodoOrganizacional<Docente>> result = new ArrayList<>();
@@ -104,9 +89,6 @@ public class ArbolOrganizacional {
         return result;
     }
 
-    /**
-     * Returns all estudiante nodes supervised by a given docente.
-     */
     @SuppressWarnings("unchecked")
     public List<NodoOrganizacional<Estudiante>> getEstudiantesPorDocente(Docente docente) {
         List<NodoOrganizacional<Estudiante>> result = new ArrayList<>();
@@ -123,16 +105,10 @@ public class ArbolOrganizacional {
         return result;
     }
 
-    /**
-     * Pre-order traversal of the entire tree, invoking the visitor at each node.
-     */
     public void recorrer(NodoVisitor visitor) {
         raiz.recorrerPreOrden(visitor);
     }
 
-    /**
-     * Counts every leaf node (i.e. Estudiante nodes) across the whole tree.
-     */
     public int totalEstudiantes() {
         int[] count = {0};
         recorrer(nodo -> {
@@ -143,9 +119,6 @@ public class ArbolOrganizacional {
         return count[0];
     }
 
-    /**
-     * Produces an indented text representation for debugging or logging.
-     */
     public String imprimirArbol() {
         StringBuilder sb = new StringBuilder();
         imprimirNodo(raiz, 0, sb);
