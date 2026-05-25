@@ -16,15 +16,15 @@ public class Cronograma {
     @Column(name = "id_cronograma")
     private Long idCronograma;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_estudiante", nullable = false)
     private Estudiante estudiante;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_docente", nullable = false)
     private Docente docente;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_servicio", nullable = false)
     private Servicio servicio;
 
@@ -93,6 +93,9 @@ public class Cronograma {
 
     @Override
     public String toString() {
-        return estudiante.getNombre() + " | " + servicio.getNombre() + " | " + fecha + " " + horaInicio;
+        String nombreEstudiante = (estudiante != null) ? estudiante.getNombre() : "Estudiante no encontrado";
+        String nombreServicio = (servicio != null) ? servicio.getNombre() : "Servicio no encontrado";
+
+        return nombreEstudiante + " | " + nombreServicio + " | " + fecha + " " + horaInicio;
     }
 }

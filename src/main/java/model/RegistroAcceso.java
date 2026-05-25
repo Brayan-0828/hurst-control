@@ -13,15 +13,15 @@ public class RegistroAcceso {
     @Column(name = "id_registro")
     private Long idRegistro;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_estudiante", nullable = false)
     private Estudiante estudiante;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_servicio", nullable = false)
     private Servicio servicio;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cronograma", nullable = false)
     private Cronograma cronograma;
 
@@ -29,7 +29,7 @@ public class RegistroAcceso {
     private LocalDateTime horaEntrada;
 
     @Column(name = "hora_salida")
-    private LocalDateTime horaSalida; // NULL mientras está dentro
+    private LocalDateTime horaSalida;
 
     public RegistroAcceso() {}
 

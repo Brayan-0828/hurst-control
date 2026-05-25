@@ -10,7 +10,6 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <!-- ENTIDADES -->
         <class>model.Universidad</class>
         <class>model.Usuario</class>
         <class>model.Docente</class>
@@ -23,13 +22,11 @@
         <class>model.Auditoria</class>
 
         <properties>
-            <!-- CONEXIÓN MySQL / XAMPP -->
             <property name="jakarta.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/hurst_control?useSSL=false&amp;serverTimezone=America/Bogota&amp;allowPublicKeyRetrieval=true"/>
             <property name="jakarta.persistence.jdbc.user"     value="root"/>
             <property name="jakarta.persistence.jdbc.password" value=""/>
             <property name="jakarta.persistence.jdbc.driver"   value="com.mysql.cj.jdbc.Driver"/>
 
-            <!-- Hibernate -->
             <property name="hibernate.dialect"        value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.hbm2ddl.auto"  value="update"/>
             <property name="hibernate.show_sql"       value="true"/>

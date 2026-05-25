@@ -1,8 +1,6 @@
 package controller;
 
-import dao.DocenteDAO;
-import dao.EstudianteDAO;
-import dao.UniversidadDAO;
+import facade.HurstFacade;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -38,18 +36,13 @@ public class EstudianteController {
     @FXML private TableColumn<Estudiante, LocalDate>   colArlVigencia;
     @FXML private TableColumn<Estudiante, Estudiante.EstadoInduccion> colInduccion;
 
-    private EstudianteDAO dao;
-    private UniversidadDAO univDAO;
-    private DocenteDAO docenteDAO;
+    // ── Facade replaces three individual DAOs ─────────────────────────────────
+    private final HurstFacade facade = HurstFacade.getInstance();
 
     private Estudiante estudianteSeleccionado = null;
 
     @FXML
     public void initialize() {
-        dao = new EstudianteDAO();
-        univDAO = new UniversidadDAO();
-        docenteDAO = new DocenteDAO();
-
         colId.setCellValueFactory(new PropertyValueFactory<>("idEstudiante"));
         colCedula.setCellValueFactory(new PropertyValueFactory<>("cedula"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -61,8 +54,8 @@ public class EstudianteController {
 
         tablaEstudiantes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        cbUniversidad.setItems(FXCollections.observableArrayList(univDAO.findAll()));
-        cbDocente.setItems(FXCollections.observableArrayList(docenteDAO.findAll()));
+        cbUniversidad.setItems(FXCollections.observableArrayList(facade.getUniversidades()));
+        cbDocente.setItems(FXCollections.observableArrayList(facade.getDocentes()));
         cbInduccion.setItems(FXCollections.observableArrayList(Estudiante.EstadoInduccion.values()));
         cbInduccion.setValue(Estudiante.EstadoInduccion.PENDIENTE);
 
@@ -145,7 +138,7 @@ public class EstudianteController {
                 estudianteSeleccionado.setEstadoInduccion(cbInduccion.getValue());
             }
 
-            dao.save(estudianteSeleccionado);
+            facade.registrarEstudiante(estudianteSeleccionado);
 
             limpiar();
             cargar();
@@ -158,7 +151,7 @@ public class EstudianteController {
     public void eliminar() {
         Estudiante est = tablaEstudiantes.getSelectionModel().getSelectedItem();
         if (est != null) {
-            dao.delete(est.getIdEstudiante());
+            facade.eliminarEstudiante(est.getIdEstudiante());
             limpiar();
             cargar();
         }
@@ -175,7 +168,7 @@ public class EstudianteController {
     }
 
     private void cargar() {
-        tablaEstudiantes.setItems(FXCollections.observableArrayList(dao.findAll()));
+        tablaEstudiantes.setItems(FXCollections.observableArrayList(facade.getEstudiantes()));
     }
 
     private void mostrarAlerta(String msg) {

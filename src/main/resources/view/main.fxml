@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<BorderPane fx:id="rootPane" minHeight="760" minWidth="1180" style="-fx-background-color: #152246;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="controller.MainController">
+<BorderPane fx:id="rootPane" minHeight="760" minWidth="1180" style="-fx-background-color: #152246;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
 
     <top>
         <HBox alignment="CENTER_LEFT" style="-fx-background-color: #1e3163; -fx-padding: 12 24; -fx-border-color: #2d4682; -fx-border-width: 0 0 1 0;">
@@ -16,15 +16,14 @@
     <left>
         <VBox maxWidth="270" minWidth="270" prefWidth="270" spacing="0" style="-fx-background-color: #1e3163; -fx-border-color: #2d4682; -fx-border-width: 0 1 0 0;">
 
-            <VBox spacing="6" style="-fx-padding: 24 20; -fx-border-color: #2d4682; -fx-border-width: 0 0 1 0;">
+            <VBox spacing="6" style="-fx-padding: #d9ecff; -fx-border-color: #2d4682; -fx-border-width: 0 0 1 0;">
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                   <ImageView fitHeight="70" fitWidth="200" preserveRatio="true">
+                   <ImageView fitHeight="119.0" fitWidth="269.0">
                        <image>
                            <Image url="@../images/logo_hospital.png" />
                        </image>
                    </ImageView>
                 </HBox>
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #cbd6ea;" text="Hosp. Univ. San Rafael de Tunja" wrapText="true" />
             </VBox>
 
             <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent; -fx-hbar-policy: never; -fx-vbar-policy: as-needed;" VBox.vgrow="ALWAYS">
