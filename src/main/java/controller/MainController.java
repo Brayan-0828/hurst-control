@@ -21,6 +21,7 @@ public class MainController {
     @FXML private HBox btnServicios;
     @FXML private HBox btnUniversidades;
     @FXML private HBox btnAcceso;
+    @FXML private HBox btnArbol;
 
     @FXML
     public void abrirCronogramas(MouseEvent event) {
@@ -59,6 +60,12 @@ public class MainController {
     }
 
     @FXML
+    public void abrirArbol(MouseEvent event) {
+        cambiarVista("arbol.fxml");
+        actualizarSeleccion(btnArbol);
+    }
+
+    @FXML
     public void salir(MouseEvent event) {
         System.exit(0);
     }
@@ -74,7 +81,7 @@ public class MainController {
     }
 
     private void actualizarSeleccion(HBox botonSeleccionado) {
-        HBox[] todosLosBotones = {btnCronograma, btnEstudiantes, btnDocentes, btnServicios, btnUniversidades, btnAcceso};
+        HBox[] todosLosBotones = {btnCronograma, btnEstudiantes, btnDocentes, btnServicios, btnUniversidades, btnAcceso, btnArbol};
 
         for (HBox boton : todosLosBotones) {
             if (boton == botonSeleccionado) {

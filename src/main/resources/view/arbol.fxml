@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane style="-fx-background-color: #152246;"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.ArbolController">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14"
+              style="-fx-background-color: #1e3163;
+                     -fx-padding: 18 28;
+                     -fx-border-color: #2d4682;
+                     -fx-border-width: 0 0 1 0;">
+
+            <SVGPath content="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+                     fill="#64d2ff" scaleX="1.2" scaleY="1.2"/>
+
+            <VBox spacing="2">
+                <Label text="Árbol Organizacional"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+                <Label text="Jerarquía: HURST CONTROL → Universidad → Docente → Estudiante"
+                       style="-fx-font-size: 12px; -fx-text-fill: #8fa4cb;"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <HBox spacing="20" alignment="CENTER">
+
+                <VBox alignment="CENTER" spacing="2"
+                      style="-fx-background-color: #152246; -fx-background-radius: 8; -fx-padding: 8 18;">
+                    <Label fx:id="lblTotalUniversidades" text="0"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #64d2ff;"/>
+                    <Label text="Universidades"
+                           style="-fx-font-size: 11px; -fx-text-fill: #8fa4cb;"/>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="2"
+                      style="-fx-background-color: #152246; -fx-background-radius: 8; -fx-padding: 8 18;">
+                    <Label fx:id="lblTotalDocentes" text="0"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #a78bfa;"/>
+                    <Label text="Docentes"
+                           style="-fx-font-size: 11px; -fx-text-fill: #8fa4cb;"/>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="2"
+                      style="-fx-background-color: #152246; -fx-background-radius: 8; -fx-padding: 8 18;">
+                    <Label fx:id="lblTotalEstudiantes" text="0"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #34d399;"/>
+                    <Label text="Estudiantes"
+                           style="-fx-font-size: 11px; -fx-text-fill: #8fa4cb;"/>
+                </VBox>
+
+                <Button fx:id="btnRefrescar" text="⟳  Refrescar"
+                        onAction="#refrescarArbol"
+                        style="-fx-background-color: #2a437e;
+                               -fx-text-fill: #64d2ff;
+                               -fx-font-size: 13px;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 8;
+                               -fx-padding: 10 20;
+                               -fx-cursor: hand;
+                               -fx-border-color: #3d5a9e;
+                               -fx-border-radius: 8;"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.45"
+                   style="-fx-background-color: #152246; -fx-border-color: transparent;">
+
+            <VBox style="-fx-background-color: #152246; -fx-padding: 20;">
+                <Label text="ESTRUCTURA DEL ÁRBOL"
+                       style="-fx-font-size: 10px; -fx-font-weight: bold;
+                              -fx-text-fill: #8fa4cb; -fx-padding: 0 0 10 4;"/>
+
+                <TreeView fx:id="arbolView" VBox.vgrow="ALWAYS"
+                          style="-fx-background-color: #1a2d5a;
+                                 -fx-background-radius: 10;
+                                 -fx-border-color: #2d4682;
+                                 -fx-border-radius: 10;
+                                 -fx-border-width: 1;
+                                 -fx-padding: 8;
+                                 -fx-font-size: 13px;">
+                </TreeView>
+            </VBox>
+
+            <VBox spacing="0" style="-fx-background-color: #152246; -fx-padding: 20;">
+
+                <Label text="DETALLE DEL NODO"
+                       style="-fx-font-size: 10px; -fx-font-weight: bold;
+                              -fx-text-fill: #8fa4cb; -fx-padding: 0 0 10 4;"/>
+
+                <VBox fx:id="panelDetalle"
+                      spacing="14"
+                      style="-fx-background-color: #1a2d5a;
+                             -fx-background-radius: 10;
+                             -fx-border-color: #2d4682;
+                             -fx-border-radius: 10;
+                             -fx-border-width: 1;
+                             -fx-padding: 24;"
+                      VBox.vgrow="ALWAYS">
+
+                    <VBox fx:id="panelVacio" alignment="CENTER" spacing="12" VBox.vgrow="ALWAYS">
+                        <SVGPath content="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+                                 fill="#2d4682" scaleX="2.5" scaleY="2.5"/>
+                        <Label text="Selecciona un nodo del árbol"
+                               style="-fx-font-size: 14px; -fx-text-fill: #3d5a9e;"/>
+                        <Label text="para ver sus detalles aquí"
+                               style="-fx-font-size: 13px; -fx-text-fill: #2d4682;"/>
+                    </VBox>
+
+                    <VBox fx:id="panelInfo" spacing="16" managed="false" visible="false">
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label fx:id="lblTipoBadge" text="RAÍZ"
+                                   style="-fx-background-color: #64d2ff22;
+                                          -fx-text-fill: #64d2ff;
+                                          -fx-font-size: 11px;
+                                          -fx-font-weight: bold;
+                                          -fx-background-radius: 20;
+                                          -fx-padding: 4 12;
+                                          -fx-border-color: #64d2ff55;
+                                          -fx-border-radius: 20;"/>
+                            <Label fx:id="lblProfundidad" text="Nivel 0"
+                                   style="-fx-font-size: 11px; -fx-text-fill: #8fa4cb;"/>
+                        </HBox>
+
+                        <Label fx:id="lblNombreNodo" text=""
+                               wrapText="true"
+                               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+
+                        <Separator style="-fx-background-color: #2d4682;"/>
+
+                        <GridPane hgap="12" vgap="10">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="130" prefWidth="140"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+
+                            <Label text="Tipo de nodo"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #8fa4cb;"
+                                   GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblTipoValor" text=""
+                                   style="-fx-font-size: 12px; -fx-text-fill: #e2e8f0;"
+                                   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                            <Label text="Hijos directos"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #8fa4cb;"
+                                   GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblHijos" text=""
+                                   style="-fx-font-size: 12px; -fx-text-fill: #e2e8f0;"
+                                   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="Total descendientes"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #8fa4cb;"
+                                   GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblDescendientes" text=""
+                                   style="-fx-font-size: 12px; -fx-text-fill: #e2e8f0;"
+                                   GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                            <Label text="Profundidad subtárbol"
+                                   style="-fx-font-size: 12px; -fx-text-fill: #8fa4cb;"
+                                   GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblProfundidadSub" text=""
+                                   style="-fx-font-size: 12px; -fx-text-fill: #e2e8f0;"
+                                   GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                            <Label fx:id="lblExtraKey" text=""
+                                   style="-fx-font-size: 12px; -fx-text-fill: #8fa4cb;"
+                                   GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblExtraVal" text=""
+                                   style="-fx-font-size: 12px; -fx-text-fill: #e2e8f0;"
+                                   GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                            <Label fx:id="lblExtra2Key" text=""
+                                   style="-fx-font-size: 12px; -fx-text-fill: #8fa4cb;"
+                                   GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblExtra2Val" text=""
+                                   style="-fx-font-size: 12px; -fx-text-fill: #e2e8f0;"
+                                   GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                        </GridPane>
+
+                        <Region VBox.vgrow="ALWAYS"/>
+
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <SVGPath fx:id="iconoHoja"
+                                     content="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+                                     fill="#34d399" scaleX="0.8" scaleY="0.8"/>
+                            <Label fx:id="lblEsHoja" text=""
+                                   style="-fx-font-size: 12px; -fx-text-fill: #34d399;"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </SplitPane>
+    </center>
+
+</BorderPane>
