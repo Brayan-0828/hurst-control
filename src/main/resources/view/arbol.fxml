@@ -16,8 +16,8 @@
                      -fx-border-color: #2d4682;
                      -fx-border-width: 0 0 1 0;">
 
-            <SVGPath content="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
-                     fill="#64d2ff" scaleX="1.2" scaleY="1.2"/>
+            <SVGPath content="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"
+                     fill="#64d2ff" scaleX="1.3" scaleY="1.3"/>
 
             <VBox spacing="2">
                 <Label text="Árbol Organizacional"
@@ -106,10 +106,10 @@
                       VBox.vgrow="ALWAYS">
 
                     <VBox fx:id="panelVacio" alignment="CENTER" spacing="12" VBox.vgrow="ALWAYS">
-                        <SVGPath content="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+                        <SVGPath content="M22 11V3h-7v3H9V3H2v8h7V8h4v10h3v3h7v-8h-7v3h-1V8h4v3h7z"
                                  fill="#2d4682" scaleX="2.5" scaleY="2.5"/>
                         <Label text="Selecciona un nodo del árbol"
-                               style="-fx-font-size: 14px; -fx-text-fill: #3d5a9e;"/>
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #3d5a9e;"/>
                         <Label text="para ver sus detalles aquí"
                                style="-fx-font-size: 13px; -fx-text-fill: #2d4682;"/>
                     </VBox>
@@ -189,7 +189,7 @@
 
                         <HBox spacing="8" alignment="CENTER_LEFT">
                             <SVGPath fx:id="iconoHoja"
-                                     content="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+                                     content="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
                                      fill="#34d399" scaleX="0.8" scaleY="0.8"/>
                             <Label fx:id="lblEsHoja" text=""
                                    style="-fx-font-size: 12px; -fx-text-fill: #34d399;"/>

@@ -11,30 +11,20 @@ import model.Universidad;
 import tree.ArbolOrganizacional;
 import tree.NodoOrganizacional;
 
-/**
- * Controller for arbol.fxml.
- *
- * Builds a JavaFX TreeView from the ArbolOrganizacional returned by HurstFacade,
- * and populates a detail panel whenever the user clicks a node.
- *
- * Hierarchy levels and their colours:
- *   Level 0 – Root (HURST CONTROL)   → #64d2ff  (cyan)
- *   Level 1 – Universidad             → #a78bfa  (violet)
- *   Level 2 – Docente                 → #fbbf24  (amber)
- *   Level 3 – Estudiante              → #34d399  (green)
- */
 public class ArbolController {
 
-    // ── FXML injections ───────────────────────────────────────────────────────
+    // iconos SVG
+    private static final String SVG_RAIZ = "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"; // Cruz/Central (🏥)
+    private static final String SVG_UNIVERSIDAD = "M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4-7L2 9h19L12 3z"; // Edificio clásico (🏛)
+    private static final String SVG_DOCENTE = "M19 2H5c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h4l-1 3v1h8v-1l-1-3h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 13H5V4h14v11z"; // Pizarra / Profesor (🏫)
+    private static final String SVG_ESTUDIANTE = "M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"; // Birrete (🎓)
 
     @FXML private TreeView<String>  arbolView;
 
-    // Stats bar
     @FXML private Label lblTotalUniversidades;
     @FXML private Label lblTotalDocentes;
     @FXML private Label lblTotalEstudiantes;
 
-    // Detail panel
     @FXML private VBox  panelVacio;
     @FXML private VBox  panelInfo;
     @FXML private Label lblTipoBadge;
@@ -70,7 +60,7 @@ public class ArbolController {
         ArbolOrganizacional arbol = facade.getArbol();
         NodoOrganizacional<String> raiz = arbol.getRaiz();
 
-        TreeItem<String> raizItem = crearItem("🏥  " + raiz.getValor(), "#64d2ff", raiz);
+        TreeItem<String> raizItem = crearItem(raiz.getValor(), "#64d2ff", SVG_RAIZ, raiz);
         raizItem.setExpanded(true);
 
         int totalDocentes = 0;
@@ -78,16 +68,18 @@ public class ArbolController {
         for (NodoOrganizacional<?> nodoUniv : raiz.getHijos()) {
             Universidad univ = (Universidad) nodoUniv.getValor();
             TreeItem<String> itemUniv = crearItem(
-                    "🏛  " + univ.getNombre() + "  ·  " + univ.getCiudad(),
+                    univ.getNombre() + "  ·  " + univ.getCiudad(),
                     "#a78bfa",
+                    SVG_UNIVERSIDAD,
                     nodoUniv);
             itemUniv.setExpanded(true);
 
             for (NodoOrganizacional<?> nodoDoc : nodoUniv.getHijos()) {
                 Docente doc = (Docente) nodoDoc.getValor();
                 TreeItem<String> itemDoc = crearItem(
-                        "👨‍🏫  " + doc.getNombre(),
+                        doc.getNombre(),
                         "#fbbf24",
+                        SVG_DOCENTE,
                         nodoDoc);
                 itemDoc.setExpanded(true);
                 totalDocentes++;
@@ -95,8 +87,9 @@ public class ArbolController {
                 for (NodoOrganizacional<?> nodoEst : nodoDoc.getHijos()) {
                     Estudiante est = (Estudiante) nodoEst.getValor();
                     TreeItem<String> itemEst = crearItem(
-                            "🎓  " + est.getNombre() + "  ·  Sem " + est.getSemestre(),
+                            est.getNombre() + "  ·  Sem " + est.getSemestre(),
                             "#34d399",
+                            SVG_ESTUDIANTE,
                             nodoEst);
                     itemDoc.getChildren().add(itemEst);
                 }
@@ -110,7 +103,6 @@ public class ArbolController {
         arbolView.setRoot(raizItem);
         arbolView.setShowRoot(true);
 
-        // Update stats
         int univCount = raiz.getHijos().size();
         lblTotalUniversidades.setText(String.valueOf(univCount));
         lblTotalDocentes.setText(String.valueOf(totalDocentes));
@@ -118,18 +110,27 @@ public class ArbolController {
     }
 
     @SuppressWarnings("unchecked")
-    private TreeItem<String> crearItem(String label, String color, NodoOrganizacional<?> nodo) {
+    private TreeItem<String> crearItem(String label, String color, String svgPath, NodoOrganizacional<?> nodo) {
         TreeItem<String> item = new TreeItem<>(label);
-        item.setGraphic(buildDot(color));
+        javafx.scene.Node iconNode = buildIcon(svgPath, color);
+        iconNode.setUserData(nodo);
+        item.setGraphic(iconNode);
         item.setExpanded(false);
-        item.getGraphic().setUserData(nodo);
         return item;
     }
 
-    private javafx.scene.shape.Circle buildDot(String hexColor) {
-        javafx.scene.shape.Circle c = new javafx.scene.shape.Circle(5);
-        c.setFill(javafx.scene.paint.Color.web(hexColor));
-        return c;
+    private javafx.scene.Node buildIcon(String svgPath, String hexColor) {
+        SVGPath path = new SVGPath();
+        path.setContent(svgPath);
+        path.setFill(javafx.scene.paint.Color.web(hexColor));
+
+        path.setScaleX(0.65);
+        path.setScaleY(0.65);
+
+        javafx.scene.layout.StackPane container = new javafx.scene.layout.StackPane(path);
+        container.setPrefSize(18, 18);
+        container.setAlignment(javafx.geometry.Pos.CENTER);
+        return container;
     }
 
     private void configurarSeleccion() {
@@ -204,7 +205,7 @@ public class ArbolController {
             lblExtra2Key.setText("Semestre  /  Inducción");
             lblExtra2Val.setText(e.getSemestre()
                     + "°  ·  " + e.getEstadoInduccion().toString().toLowerCase());
-            marcarHoja(true); // always leaf
+            marcarHoja(true);
         }
     }
 
@@ -212,13 +213,13 @@ public class ArbolController {
         lblTipoBadge.setText(texto);
         lblTipoBadge.setStyle(
                 "-fx-background-color: " + color + "22;"
-                + "-fx-text-fill: " + color + ";"
-                + "-fx-font-size: 11px;"
-                + "-fx-font-weight: bold;"
-                + "-fx-background-radius: 20;"
-                + "-fx-padding: 4 12;"
-                + "-fx-border-color: " + color + "55;"
-                + "-fx-border-radius: 20;");
+                        + "-fx-text-fill: " + color + ";"
+                        + "-fx-font-size: 11px;"
+                        + "-fx-font-weight: bold;"
+                        + "-fx-background-radius: 20;"
+                        + "-fx-padding: 4 12;"
+                        + "-fx-border-color: " + color + "55;"
+                        + "-fx-border-radius: 20;");
         iconoHoja.setFill(javafx.scene.paint.Color.web(color));
     }
 
