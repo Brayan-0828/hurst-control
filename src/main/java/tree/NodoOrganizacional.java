@@ -4,13 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Generic node for the Hurst Control organizational tree.
- * Each node holds a typed value and an ordered list of children,
- * forming an N-ary tree that mirrors the University → Docente → Estudiante hierarchy.
- *
- * @param <T> the type of the value stored in this node
- */
 public class NodoOrganizacional<T> {
 
     private final T valor;

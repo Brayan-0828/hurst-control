@@ -7,22 +7,6 @@ import model.Universidad;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * N-ary tree that organises the Hurst Control hierarchy:
- *
- *   Root (virtual)
- *   └── Universidad A
- *       ├── Docente 1
- *       │   ├── Estudiante X
- *       │   └── Estudiante Y
- *       └── Docente 2
- *           └── Estudiante Z
- *   └── Universidad B
- *       └── ...
- *
- * The tree is built from plain lists (as returned by DAOs) and provides
- * look-up, traversal, and reporting operations without touching the database.
- */
 public class ArbolOrganizacional {
 
     private final NodoOrganizacional<String> raiz;
@@ -35,7 +19,6 @@ public class ArbolOrganizacional {
                           List<Docente>     docentes,
                           List<Estudiante>  estudiantes) {
 
-        // Clear existing children of the root
         for (NodoOrganizacional<?> hijo : new ArrayList<>(raiz.getHijos())) {
             raiz.eliminarHijo(hijo);
         }

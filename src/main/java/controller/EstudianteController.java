@@ -36,7 +36,6 @@ public class EstudianteController {
     @FXML private TableColumn<Estudiante, LocalDate>   colArlVigencia;
     @FXML private TableColumn<Estudiante, Estudiante.EstadoInduccion> colInduccion;
 
-    // ── Facade replaces three individual DAOs ─────────────────────────────────
     private final HurstFacade facade = HurstFacade.getInstance();
 
     private Estudiante estudianteSeleccionado = null;

@@ -8,26 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Facade (Patrón de Diseño Estructural)
- * ──────────────────────────────────────
- * HurstFacade provides a single, simplified entry-point for the most common
- * operations in the system.  Controllers interact with this class instead of
- * instantiating and coordinating multiple DAOs themselves, which reduces
- * coupling and centralises business rules.
- *
- * Usage from any controller:
- *
- *   HurstFacade facade = HurstFacade.getInstance();
- *   List<Estudiante> estudiantes = facade.getEstudiantesActivos();
- *   facade.registrarEstudiante(est);
- *
- * The Facade also owns the shared ArbolOrganizacional instance and rebuilds
- * it automatically whenever data changes.
- */
 public class HurstFacade {
-
-    // ── Singleton (the Facade is also its own Singleton) ─────────────────────
 
     private static HurstFacade instancia;
 

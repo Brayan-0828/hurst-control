@@ -13,7 +13,6 @@ import tree.NodoOrganizacional;
 
 public class ArbolController {
 
-    // iconos SVG
     private static final String SVG_RAIZ = "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"; // Cruz/Central (🏥)
     private static final String SVG_UNIVERSIDAD = "M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4-7L2 9h19L12 3z"; // Edificio clásico (🏛)
     private static final String SVG_DOCENTE = "M19 2H5c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h4l-1 3v1h8v-1l-1-3h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 13H5V4h14v11z"; // Pizarra / Profesor (🏫)

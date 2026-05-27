@@ -90,7 +90,6 @@ public class CronogramaController {
     }
 
     private void forzarEstiloCeldasBlancas() {
-        // Estilo común para inyectar texto blanco en las filas de la tabla
         String estiloBlanco = "-fx-text-fill: #ffffff; -fx-alignment: CENTER-LEFT;";
 
         colId.setCellFactory(c -> new TableCell<>() {
