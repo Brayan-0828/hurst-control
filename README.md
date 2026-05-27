@@ -243,3 +243,4 @@ src/main/resources/
 
 *HURST-Control v1.0 — Desarrollado con Java 21 + JavaFX + Hibernate + MySQL*  
 *Universidad Santo Tomás — Proyecto académico*
+*Desarrollado por: Pablo Andres Araque Suarez — Harold Leonardo Bautista Vargas — Brayan Felipe Carrillo Guerra — Diego Alejandro Espejo Briceño — Karen Alexandra Torres Burgos*
